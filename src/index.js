@@ -1,6 +1,7 @@
 // @ts-check
 
+import app from './app.js';
 import 'bootstrap';
 import './style.css';
 
-console.log('Hello, world');
+app();
