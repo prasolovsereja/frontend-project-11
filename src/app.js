@@ -7,6 +7,7 @@ import ru from './locales/ru.js';
 import view from './view/view.js';
 import getData from './parser.js';
 import fetchData from './fetch.js';
+import updatePosts from './updater.js';
 
 export default () => {
   const elements = {
@@ -74,4 +75,6 @@ export default () => {
         watchedState.rssForm.state = 'filling';
       });
   });
+
+  setTimeout(() => updatePosts(watchedState), 5000);
 };

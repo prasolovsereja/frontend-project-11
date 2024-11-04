@@ -53,7 +53,7 @@ const renderPosts = (state, elements) => {
 
   const cardTitle = document.createElement('h2');
   cardTitle.classList.add('card-title', 'h4');
-  cardTitle.textContent = 'Фиды';
+  cardTitle.textContent = 'Посты';
   cardTitleContainer.append(cardTitle);
 
   const ulElement = document.createElement('ul');
