@@ -4,18 +4,23 @@
   "description": "[![Actions Status](https://github.com/prasolovsereja/frontend-project-11/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/prasolovsereja/frontend-project-11/actions)",
   "type": "module",
   "scripts": {
-    "test": "jest --colors"
+    "test": "jest --colors",
+    "build": "webpack --mode=production --node-env=production",
+    "build:dev": "webpack --mode=development",
+    "build:prod": "webpack --mode=production --node-env=production",
+    "watch": "webpack --watch",
+    "serve": "webpack serve"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/prasolovsereja/frontend-project-11.git"
+    "url": "git+https://github.com/prasolovsereja/frontend-project-111.git"
   },
   "author": "Sergey Prasolov",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/prasolovsereja/frontend-project-11/issues"
+    "url": "https://github.com/prasolovsereja/frontend-project-111/issues"
   },
-  "homepage": "https://github.com/prasolovsereja/frontend-project-11#readme",
+  "homepage": "https://github.com/prasolovsereja/frontend-project-111#readme",
   "jest": {
     "verbose": true,
     "testEnvironmentOptions": {
