@@ -17,6 +17,11 @@ export default () => {
     feedback: document.querySelector('.feedback'),
     feedsContainer: document.querySelector('.feeds'),
     postsContainer: document.querySelector('.posts'),
+    modal: {
+      title: document.querySelector('.modal-title'),
+      description: document.querySelector('.modal-body'),
+      footer: document.querySelector('.modal-footer'),
+    },
   };
 
   const initialState = {
@@ -27,6 +32,10 @@ export default () => {
     },
     feeds: [],
     posts: [],
+    uiState: {
+      visitedPosts: new Set(),
+      modalId: null,
+    },
   };
 
   const i18n = i18next.createInstance();
@@ -45,7 +54,6 @@ export default () => {
     const formData = new FormData(e.target);
     watchedState.rssForm.state = 'filling';
     const url = formData.get('url');
-    console.log(url);
     const urlsList = watchedState.feeds.map((feed) => feed.url);
     validateUrl(url, urlsList, i18n)
       .then((validUrl) => {
@@ -63,7 +71,6 @@ export default () => {
         watchedState.rssForm.state = 'success';
       })
       .catch((err) => {
-        console.log('err>>>', err);
         watchedState.rssForm.isValid = err.name !== 'ValidationError';
         if (err.name === 'ValidationError') {
           watchedState.rssForm.error = err.message;
@@ -74,6 +81,18 @@ export default () => {
         }
         watchedState.rssForm.state = 'filling';
       });
+  });
+
+  elements.postsContainer.addEventListener('click', ({ target }) => {
+    if (target.closest('a')) {
+      const { id } = target.dataset;
+      watchedState.uiState.visitedPosts.add(id);
+    }
+    if (target.closest('button')) {
+      const { id } = target.dataset;
+      watchedState.uiState.visitedPosts.add(id);
+      watchedState.uiState.modalId = id;
+    }
   });
 
   setTimeout(() => updatePosts(watchedState), 5000);
