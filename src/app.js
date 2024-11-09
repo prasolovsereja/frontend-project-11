@@ -71,10 +71,11 @@ export default () => {
         watchedState.rssForm.state = 'success';
       })
       .catch((err) => {
+        console.log('err>>>', err.notValidRss);
         watchedState.rssForm.isValid = err.name !== 'ValidationError';
         if (err.name === 'ValidationError') {
           watchedState.rssForm.error = err.message;
-        } else if (err.NotValidRss) {
+        } else if (err.notValidRss) {
           watchedState.rssForm.error = 'form.errors.notValidRSS';
         } else if (axios.isAxiosError(err)) {
           watchedState.rssForm.error = 'form.errors.networkError';
