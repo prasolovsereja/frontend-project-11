@@ -6,7 +6,7 @@ export default {
         required: 'Не должно быть пустым',
         invalidUrl: 'Ссылка должна быть валидным URL',
         existingUrl: 'RSS уже существует',
-        notValidRSS: 'Не валидный RSS',
+        notValidRSS: 'Ресурс не содержит валидный RSS',
         networkError: 'Ошибка сети',
       },
     },
