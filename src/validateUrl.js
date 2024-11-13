@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 
-export default (url, urls, i18n) => {
+export const setLocale = (i18n) => {
   yup.setLocale({
     string: {
       url: i18n.t('form.errors.invalidUrl'),
@@ -10,7 +10,10 @@ export default (url, urls, i18n) => {
       notOneOf: i18n.t('form.errors.existingUrl'),
     },
   });
+  console.log('locale setted');
+};
 
+export default (url, urls) => {
   const schema = yup
     .string()
     .required()

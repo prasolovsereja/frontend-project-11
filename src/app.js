@@ -1,8 +1,7 @@
-// import onChange from 'on-change';
 import _ from 'lodash';
 import axios from 'axios';
 import i18next from 'i18next';
-import validateUrl from './validateUrl.js';
+import validateUrl, { setLocale } from './validateUrl.js';
 import ru from './locales/ru.js';
 import view from './view/view.js';
 import getData from './parser.js';
@@ -26,7 +25,7 @@ export default () => {
 
   const initialState = {
     rssForm: {
-      state: 'filling',
+      state: 'initial',
       error: null,
       isValid: true,
     },
@@ -45,7 +44,15 @@ export default () => {
     resources: {
       ru,
     },
-  });
+  })
+    .then(() => {
+      console.log('i18n успешно инициализирован');
+    })
+    .catch((err) => {
+      console.error('ошибка инициализации', err);
+    });
+
+  setLocale(i18n);
 
   const watchedState = view(initialState, elements, i18n);
 
@@ -55,9 +62,8 @@ export default () => {
     watchedState.rssForm.state = 'filling';
     const url = formData.get('url');
     const urlsList = watchedState.feeds.map((feed) => feed.url);
-    validateUrl(url, urlsList, i18n)
+    validateUrl(url, urlsList)
       .then((validUrl) => {
-        console.log(validUrl);
         watchedState.rssForm.error = null;
         watchedState.rssForm.state = 'processing';
         return fetchData(validUrl);
@@ -71,7 +77,6 @@ export default () => {
         watchedState.rssForm.state = 'success';
       })
       .catch((err) => {
-        console.log('err>>>', err.notValidRss);
         watchedState.rssForm.isValid = err.name !== 'ValidationError';
         if (err.name === 'ValidationError') {
           watchedState.rssForm.error = err.message;

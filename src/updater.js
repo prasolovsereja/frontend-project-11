@@ -17,6 +17,6 @@ const updatePosts = (watchedState) => {
     })
     .catch(console.error));
   Promise.all(promises)
-    .then(() => setTimeout(() => updatePosts(watchedState), 5000));
+    .finally(() => setTimeout(() => updatePosts(watchedState), 5000));
 };
 export default updatePosts;
